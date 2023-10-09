@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  background-image: url("../src/resource/icons/landing.jpg");
+  
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir toda la pantalla */
+  background-repeat: no-repeat; /* Evita la repetición de la imagen */
+  background-attachment: fixed; /* Fija la imagen de fondo para que no se desplace con el contenido */
+  background-position: center center;
 }
 
 .App-logo {

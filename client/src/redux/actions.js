@@ -6,6 +6,8 @@ import {
     GET_VIDEOGAMES, 
     VIDEOGAMES_DETAIL,
     VIDEOGAMES_NAME, 
+    DETAIL_CLEAN,
+    // CREATE_GAME
 } from "./actions.types";
 
 // variable de entorno para almacenar información de configuración;
@@ -13,7 +15,7 @@ import {
 
 // Traemos todos los juegos con esta ACCION;
 export const getVideoGames = () => {
-    const endpoint = 'http://localhost:3001/videogames';
+    const endpoint = 'http://localhost:3001/videogames/';
     return async (dispatch) => {
         try {
            const { data } = await axios.get(endpoint);
@@ -84,7 +86,7 @@ export const addFav = (videogame) => {
 
 // Obtiene el detalle especifico de un juego;
 export const detailVideoGame = (id) => {
-    const endpoint = 'http://localhost:3001//videogames' + id;
+    const endpoint = 'http://localhost:3001/videogames/' + id;
     return async (dispatch) => {
         try {
             const { data } = await axios.get(endpoint);
@@ -114,4 +116,24 @@ export const deleteFav = (id) => {
             console.log(error.message);
         };
     };
+};
+
+// export const createVideoGame = (videogame) => {
+//    const endpoint = 'http://localhost:3001/videogames'
+//     return async (dispatch) => {
+//     try {
+//         const { data } = await axios.post(endpoint, videogame)
+//         return dispatch({
+//             type: CREATE_GAME,
+//             payload: data,
+//         });
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+//    }
+// }
+
+// Limpia los detalles de un juego;
+export const detailClean = () => {
+   return { type: DETAIL_CLEAN };
 };

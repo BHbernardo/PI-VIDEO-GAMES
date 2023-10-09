@@ -1,91 +1,15 @@
-// import { useEffect, useState } from "react";
-// import { connect } from 'react-redux'
-// import style from "./Card.module.css"
-// import { addFav, deleteFav } from "../../redux/actions";
-
-// const Card = ({
-//     id,
-//     userid,
-//     name,
-//     releasedate,
-//     rating,
-//     platforms,
-//     image,
-//     addFav,
-//     deleteFav,
-//     myFavorites,
-// }) => {
-//   const [isFav, setisFav] = useState(false);
-
-//   useEffect(() => {
-//       myFavorites.forEach((fav) => {
-//         if (fav.id === id && fav.userid === userid) {
-//           setisFav(true);
-//         }
-//       });
-//     }, [myFavorites, id, userid]);
-
-//   const handleFavorite = () => {
-//     if(isFav) {
-//         setisFav(false);
-//         deleteFav(id);
-//     }
-//     else {
-//         setisFav(true);
-//         // Comprueba si el valor pasado por argumento es un array;
-//         const plataformsVideoGame = Array.isArray(platforms)
-//         ? platforms.join(", ") // ".join = va a separar todos los elementos del array con " , ";
-//         : platforms;
-//         addFav({
-//             id, 
-//             userid, 
-//             name, 
-//             releasedate, 
-//             rating, 
-//             platforms: plataformsVideoGame, 
-//             image,
-//         });
-//     };
-//   };
-
-// // Chequea si el juego es favorito o no;
-//     return (
-//         <div className={style.card}>
-//             <button onClick={handleFavorite}>{isFav? '❤️' : '🤍' }</button>
-//             {/* <h2>ID: {id}</h2>
-//             <h2>USEREID: {userid}</h2>
-//             <h2>NAME: {name}</h2>
-//             <h2>RELEASEDATE: {releasedate}</h2>
-//             <h2>RATING: {rating}</h2>
-//             <h2>PLATFORMS: {platforms}</h2>
-//             <h2>IMAGE: {image}</h2> */}
-//         </div>
-//     )
-// }
-
-// const mapStateToProps = (state) => {
-//     return {
-//       myfavorites: state.myfavorites,
-//     };
-//   };
-  
-//   const mapDispatchToProps = (dispatch) => {
-//     return {
-//       addFav: (character) => {
-//         dispatch(addFav(character));
-//       },
-//       deleteFav: (id) => {
-//         dispatch(deleteFav(id));
-//       },
-//     };
-//   };
-  
-//   export default connect(mapStateToProps, mapDispatchToProps)(Card);
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, deleteFav } from "../../redux/actions";
 import "./Card.css";
+import { Link } from "react-router-dom";
+
+import gameconsoleIcon from "../../resource/icons/gameconsole.png";
+import pcIcon from "../../resource/icons/pc.png";
+import playstationIcon from "../../resource/icons/playstation.png";
+import smartphoneIcon from "../../resource/icons/smartphone.png";
+import xboxIcon from "../../resource/icons/xbox.png";
 
 const Card = ({
     id,
@@ -142,63 +66,61 @@ const Card = ({
     };
   };
 
+
+  // De esta manera obtenemos los iconos de las distintas plataformas;
+  const getplatIcons = (platforms) => {
+    const platformsKey = Array.isArray(platforms)
+      ? platforms.join(", ").toLowerCase()
+      : platforms.toLowerCase();
+  
+    const platformsIcons = [];
+  
+    if (platformsKey.includes("pc")) {
+      platformsIcons.push(pcIcon);
+    }
+    if (platformsKey.includes("gameconsole")) {
+      platformsIcons.push(gameconsoleIcon);
+    }
+    if (platformsKey.includes("playstation")) {
+      platformsIcons.push(playstationIcon);
+    }
+    if (platformsKey.includes("xbox")) {
+      platformsIcons.push(xboxIcon);
+    }
+    if (platformsKey.includes("smartphone")) {
+      platformsIcons.push(smartphoneIcon);
+    }
+  
+    return (
+      <>
+        {platformsIcons.map((icon) => (
+          <img
+            key={icon}
+            src={icon}
+            alt={"icon"}
+          />
+        ))}
+      </>
+    );
+  };
+
+  
   return (
   <div className="card">
     <div className="image-container">
     <img src={image} alt={name} />
     </div>
+   <Link to={`/detail/${id}`}>
     <div className="title">
     <h2>{name}</h2>
     </div>
-    <p>Release Date: {releaseDate}</p>
-    <p>Rating: {rating}</p>
-    <p>Platforms: {platforms.join(", ")}</p>
+    <div className="platform-icons">{getplatIcons(platforms)}</div>
+   </Link> 
     
-  
-    <div>
-      <button  className="favorite-button" onClick={handleFavorite}>{isFav ? '❤️' : '🤍' }</button>
-    </div>
   </div> 
   )
 }
 
 export default Card;
   
-// import React from "react";
-
-// function Card({
-//   id,
-//   userid,
-//   name,
-//   releaseDate,
-//   rating,
-//   platforms,
-//   image
-// }) {
-//   return (
-//     <div className="card">
-//       <img src={image} alt={name} />
-//       <div className="card-content">
-//         <h2>{name}</h2>
-//         <p>
-//           <strong>Release Date:</strong> {releaseDate}
-//         </p>
-//         <p >
-//           <strong>Rating:</strong> {rating}
-//         </p>
-//         <p>
-//           <strong>Platforms:</strong> {platforms.join(", ")}
-//         </p>
-//         <p >
-//           <strong>User ID:</strong> {userid}
-//         </p>
-//         <p >
-//           <strong>ID:</strong> {id}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Card;
 

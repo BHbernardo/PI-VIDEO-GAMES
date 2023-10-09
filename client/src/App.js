@@ -1,31 +1,51 @@
 import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { UserProvider } from './userContext';
+import { useState } from 'react';
 
 
 import Landing from './Component/Landing/Landing';
 import Form from './Component/Form/Form';
 import Home from './Component/HomeComponent/Home';
+import SearchBar from './Component/SearchBarComponent/SearchBar';
+import NavBar from './Component/NavComponent/Nav';
 import Favorites from './Component/Favorites/Favorites';
-
+import Sidebar from './sidebar/sidebar';
+import Detail from './Component/DetailComponent/Detail';
+import NewVideoGames from './Component/NewVideoGame/newVideoGame';
+import About from './Component/AboutComponent/About';
 
 
 function App() {
 
-  const location= useLocation();
+  const { pathname }= useLocation();
+
+  const [showSidebar, setShowSidebar] = useState(false);
+  const toggleSidebar = () => {
+    setShowSidebar((prevState) => !prevState);
+  };
+
+  const location = pathname !== "/" && pathname !== "/login"; 
 
   return (
-    <div >
-      {
-        location.pathname !== "/" && location.pathname !== "/login"
-      }
+    <div className='App'>
+      { location && ( 
+        <div className='app-container'> 
+        <NavBar showSidebar={showSidebar} toggleSidebar={toggleSidebar}/>
+        <Sidebar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
+        </div>
+      )}
       
     <UserProvider>
       <Routes>
       <Route path='/' element={<Landing/>} />
       <Route path='/login' element={<Form/>} />
       <Route path='/home' element = {<Home/>} />
-      <Route path="/favorites" element={<Favorites />} /> 
+      <Route path='/search' element={<SearchBar/>}/>
+      <Route path="/favorites" element={<Favorites />} />
+      <Route path='/detail/:id' element={<Detail/>}/>
+      <Route path='/new' element={<NewVideoGames/>}/>
+      <Route path='/about' element={<About/>} />
       </Routes>
     </UserProvider>  
     </div>

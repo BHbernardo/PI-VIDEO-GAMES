@@ -5,6 +5,8 @@ import {
     GET_VIDEOGAMES, 
     VIDEOGAMES_DETAIL,
     VIDEOGAMES_NAME,
+    DETAIL_CLEAN,
+    // CREATE_GAME,
 } from "./actions.types";
 
 const initialState = { // ESTADO INICIAL;
@@ -51,6 +53,18 @@ const reducer = (state = initialState, action) => {
         return {
             ...state,
             myFavorites: action.payload,
+        }  
+ 
+    //   case CREATE_GAME:
+    //     return {
+    //         ...state,
+    //         videogames: action.payload,
+    //     }
+     
+     case DETAIL_CLEAN:
+        return {
+            ...state,
+            videogamedetail: {},
         }   
     
     default: 

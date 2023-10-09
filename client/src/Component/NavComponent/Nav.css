@@ -1,0 +1,45 @@
+.navbar {
+    background: linear-gradient(180deg, #000000, #190114);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 20px;
+    height: 80px; /* Ajusta la altura de la barra de navegación */
+  font-size: 20px; /* Ajusta el tamaño de fuente de la barra de navegación */
+  }
+  
+  .navbar button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 19px;
+    font-weight: bold;
+  }
+  
+  .navbar button:hover {
+    font-size: 21px; /* Aumenta el tamaño de fuente al pasar el cursor */
+    transform: translateY(-2px); /* Mueve el botón hacia arriba al pasar el cursor */
+    transition: font-size 0.2s ease, transform 0.2s ease; /* Agrega una transición suave */
+    
+  }
+  
+  .navbar input[type="search"] {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  .navbar img {
+    height: 55px;
+    margin-right: 20px;
+  }
+  
+  .navbar-icon {
+    font-size: 25px;
+    cursor: pointer;
+  }

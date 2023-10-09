@@ -43,17 +43,24 @@ useEffect(() => {
    !access && navigate("/login");
 }, [access, navigate]);
 
-// Funcion para enviar el formulario;  
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // permite que no se recargue la pag y no perder la informacion aplicada;
+// Funcion para enviar el formulario; 
+const handleSubmit = async (event) => {
+  event.preventDefault(); // permite que no se recargue la pag y no perder la informacion aplicada;  
+
+  // Verifica si hay errores en la validación antes de enviar la solicitud al servidor
+  if (errors.email || errors.password) {
+    // Si hay errores de validación, no envíes la solicitud
+    setLoginn("Invalid email or password");
+  } else {
+    // Si no hay errores de validación, envía la solicitud al servidor
     const loginResult = await login(form);
 
     setAccess(loginResult.access);
-    setLoginn(loginResult.access 
-        ? "" 
-        : "Invalid email or password"
+    setLoginn(
+      loginResult.access ? "" : "Invalid email or password"
     );
-  };
+  }
+};
 
   return (
     <div className="formulario-container">   

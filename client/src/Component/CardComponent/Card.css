@@ -76,3 +76,40 @@
     color: rgb(240, 4, 4);
     transform: scale(1.5);
   }
+
+  /* Estilos para el componente de calificación con estrellas */
+.star-rating {
+  display: inline-flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 24px;
+}
+
+.filled {
+  color: gold;
+  z-index: 1;
+}
+
+.half-filled {
+  position: relative;
+  overflow: hidden;
+}
+
+.half-filled::before {
+  content: "★";
+  color: gold;
+  position: absolute;
+  overflow: hidden;
+  width: 50%;
+  z-index: 1;
+}
+
+.platform-icons img {
+  border-radius: 0px;
+  width: 25px;
+  margin-inline: 5px;
+  filter: invert(1);
+}

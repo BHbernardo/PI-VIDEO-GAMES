@@ -18,6 +18,12 @@ const validation = (form, errors, setErrors) => {
     } else if (!/\d/.test(form.password)) {
         passwordError = "Must contain at least on number";  
     }
+
+      // Actualiza el estado de errors con los nuevos errores
+  setErrors({
+    email: emailError,
+    password: passwordError,
+  });
 }
 
 export default validation;
