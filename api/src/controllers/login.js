@@ -1,4 +1,5 @@
 const { User } = require("../db");
+const bcrypt = require("bcrypt");
 
 const login = async (req, res) => {
     try {
@@ -17,9 +18,11 @@ const login = async (req, res) => {
 
     // Compara si la contraseña del usuario es igual a la ya almacenada;
 
+        const passwordValid = await bcrypt.compare(password, user.password)
+        
         const userid = user.id;
 
-        return user.password === password
+        return passwordValid
         ? res.status(200).json( { access: true, userid } )
         : res.status(403).send("Invalid Password");
     } catch (error) {

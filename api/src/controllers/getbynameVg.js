@@ -14,23 +14,21 @@ const getbynameVg = async(req, res) => {
    //Buscar el nombre en la "Base de datos";
    const videogame = await Videogame.findOne({ 
     where: { 
-    id,
     name: { 
-      [Op.iLike]: `%${name}%` 
+      [Op.iLike]: `%${name}` 
     } 
   }, 
-  limit: 15,
 });
    
    // Realizar una solicitud a la API;
    const response = await axios.get(`${URL}?key=${API_KEY}&search=${name}`);
    
-   // Filtramos los videojuegos encontrados que coinciden SOLO 15 con el nombre proporcionado;
+   // Filtramos los juegos encontrados que coincidan SOLO 15 con el nombre proporcionado;
    const filtrados = response.data.results
       .filter((game) => game.name.toLowerCase().includes(name.toLowerCase()))
       .slice(0, 15);
 
-   // Mapear los datos de los videojuegos filtrados para obtener una lista;
+   // Mapear los datos de los juegos filtrados para obtener una lista;
     const videoGames = filtrados.map((data) => ({
         id: data.id,
         name: data.name,

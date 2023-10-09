@@ -14,8 +14,13 @@ const getbyidVideogames = async (req, res) => {
  // Verificamos si el id es un UUID, una vez que lo verifica lo busca;
         if(id.includes("-")) {
              await Videogame.findOne({
-                where: { id },
-                include: [Genres], // incluye el genero al que esta asociado;
+                where: { 
+                        id, 
+                },
+                include: { 
+                        model: Genres, // incluye el genero al que esta asociado;
+                        attributes: ["name"], // que incluya el atributo name;
+                }, 
             });
             
         const genres = Genres;

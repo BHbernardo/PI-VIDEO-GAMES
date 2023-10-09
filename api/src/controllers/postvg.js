@@ -5,10 +5,10 @@ const postvg = async (req, res) => {
   try {
 
 // Corroborar que todas las propiedades existan;    
-    const { name, description, platforms, image, released, rating, genres } = req.body;
+    const { name, description, platforms, image, releaseDate, rating, genres } = req.body;
 
 // Si alguna de las propiedades no existe, lanza un mensaje de error;
-    if(!name || !description || !platforms || !image || !released || !rating){
+    if(!name || !description || !platforms || !image || !releaseDate || !rating || !genres){
         return res.status(400).send("Hacen falta datos");
     }
 
@@ -43,7 +43,7 @@ const postvg = async (req, res) => {
         description,
         platforms,
         image,
-        released,
+        releaseDate,
         rating,
       });
 
