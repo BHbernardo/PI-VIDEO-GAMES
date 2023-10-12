@@ -9,11 +9,11 @@ import Form from './Component/Form/Form';
 import Home from './Component/HomeComponent/Home';
 import SearchBar from './Component/SearchBarComponent/SearchBar';
 import NavBar from './Component/NavComponent/Nav';
-import Favorites from './Component/Favorites/Favorites';
 import Sidebar from './sidebar/sidebar';
 import Detail from './Component/DetailComponent/Detail';
 import NewVideoGames from './Component/NewVideoGame/newVideoGame';
 import About from './Component/AboutComponent/About';
+import Fotter from './Component/Footer/fotter'
 
 
 function App() {
@@ -42,12 +42,16 @@ function App() {
       <Route path='/login' element={<Form/>} />
       <Route path='/home' element = {<Home/>} />
       <Route path='/search' element={<SearchBar/>}/>
-      <Route path="/favorites" element={<Favorites />} />
       <Route path='/detail/:id' element={<Detail/>}/>
       <Route path='/new' element={<NewVideoGames/>}/>
       <Route path='/about' element={<About/>} />
       </Routes>
     </UserProvider>  
+    {location && (
+      <div className='app-container'>
+         <Fotter/>
+      </div>  
+    )}
     </div>
   );
 }

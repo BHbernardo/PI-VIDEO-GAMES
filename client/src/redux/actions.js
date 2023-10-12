@@ -1,13 +1,10 @@
 import axios from "axios";
 import { 
-    ADD_FAV, 
-    DELETE_FAV, 
     GENRES_VIDEOGAMES, 
     GET_VIDEOGAMES, 
     VIDEOGAMES_DETAIL,
     VIDEOGAMES_NAME, 
     DETAIL_CLEAN,
-    // CREATE_GAME
 } from "./actions.types";
 
 // variable de entorno para almacenar información de configuración;
@@ -65,25 +62,6 @@ export const genresVg = () => {
     };
 };
 
-// Agrega un juego a favoritos;
-export const addFav = (videogame) => {
-    const endpoint = 'http://localhost:3001/videogames/fav';
-    return async (dispatch) => {
-        try {
-            const { data } = await axios.post(endpoint, videogame);
-
-            if(!data.length) throw Error('No hay favoritos')
-
-            return dispatch({
-                type: ADD_FAV,
-                payload: data,
-            });
-        } catch (error) {
-            console.log(error.message);
-        };
-    };
-};
-
 // Obtiene el detalle especifico de un juego;
 export const detailVideoGame = (id) => {
     const endpoint = 'http://localhost:3001/videogames/' + id;
@@ -100,38 +78,6 @@ export const detailVideoGame = (id) => {
         };
     };
 };
-
-// Elimina un juego de favoritos;
-export const deleteFav = (id) => {
-    const endpoint = 'http://localhost:3001/videogames/fav' +id;
-    return async (dispatch) => {
-        try {
-            const { data } = await axios.delete(endpoint);
-
-            return dispatch({
-                type: DELETE_FAV,
-                payload: data,
-            });
-        } catch (error) {
-            console.log(error.message);
-        };
-    };
-};
-
-// export const createVideoGame = (videogame) => {
-//    const endpoint = 'http://localhost:3001/videogames'
-//     return async (dispatch) => {
-//     try {
-//         const { data } = await axios.post(endpoint, videogame)
-//         return dispatch({
-//             type: CREATE_GAME,
-//             payload: data,
-//         });
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-//    }
-// }
 
 // Limpia los detalles de un juego;
 export const detailClean = () => {

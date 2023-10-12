@@ -1,27 +1,24 @@
-import Cards from "../CardsConteiner/Cards";
-import { genresVg } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { genresVg } from "../../redux/actions";
 import { useUserContext } from "../../userContext";
 import "./Home.css";
+import Cards from "../CardsConteiner/Cards";
 
 const Home = () => {
-  const { userid } = useUserContext(); // Asegúrate de llamar a la función para obtener el ID de usuario.
+  const { userid } = useUserContext();
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
 
-  // Obtenemos los géneros cuando se monta el componente.
   useEffect(() => {
     dispatch(genresVg());
   }, [dispatch]);
 
-  // Estado para los filtros y opciones de clasificación.
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [showGenreMenu, setShowGenreMenu] = useState(false);
 
-  // Manejo de los cambios en los géneros.
   const handleGenreFilters = (event) => {
     const genreName = event.target.value;
     setSelectedGenres((prevSelectedGenres) => {
@@ -33,17 +30,14 @@ const Home = () => {
     });
   };
 
-  // Manejo en opciones de origen.
   const handleOriginChange = (event) => {
     setSelectedOrigin(event.target.value);
   };
 
-  // Manejo en los cambios de opción de clasificación.
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
   };
 
-  // Función que resetea los filtros.
   const resetFilter = () => {
     setSortOption("");
     setSelectedGenres([]);
@@ -62,11 +56,9 @@ const Home = () => {
             value={sortOption}
             onChange={handleSortChange}
           >
-            <option value="">
-              ORDER BY
-            </option>
-            <option value="1"> A - Z </option>
-            <option value="2"> Z - A </option>
+            <option value="">ORDER BY</option>
+            <option value="1">A - Z</option>
+            <option value="2">Z - A</option>
             <option value="3">RATING: 5 - 0</option>
             <option value="4">RATING: 0 - 5</option>
           </select>
@@ -77,7 +69,7 @@ const Home = () => {
               className="genre-menu-button"
               onClick={() => setShowGenreMenu(!showGenreMenu)}
             >
-               GENRES
+              GENRES
             </button>
             {showGenreMenu && (
               <div className="genre-menu">

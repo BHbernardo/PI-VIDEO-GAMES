@@ -45,19 +45,21 @@ useEffect(() => {
 
 // Funcion para enviar el formulario; 
 const handleSubmit = async (event) => {
-  event.preventDefault(); // permite que no se recargue la pag y no perder la informacion aplicada;  
+  event.preventDefault(); // evita el envío del formulario y la recarga de la página
 
-  // Verifica si hay errores en la validación antes de enviar la solicitud al servidor
+  // Valida el formulario cuando el usuario haga clic en "LOGIN"
+  validation(form, errors, setErrors);
+
   if (errors.email || errors.password) {
-    // Si hay errores de validación, no envíes la solicitud
-    setLoginn("Invalid email or password");
+    // Si hay errores de validación, no se enviará el formulario
+    setLoginn("Correo o contraseña inválidos");
   } else {
-    // Si no hay errores de validación, envía la solicitud al servidor
+    // Si no hay errores, se enviará el formulario
     const loginResult = await login(form);
 
     setAccess(loginResult.access);
     setLoginn(
-      loginResult.access ? "" : "Invalid email or password"
+      loginResult.access ? "" : "Correo o contraseña inválidos"
     );
   }
 };

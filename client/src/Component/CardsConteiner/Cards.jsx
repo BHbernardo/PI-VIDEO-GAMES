@@ -1,28 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
-import Card from "../CardComponent/Card";
-import { useEffect, useState } from "react";
-import { addFav } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { getVideoGames } from "../../redux/actions";
+import Card from "../CardComponent/Card";
 import "./Cards.css";
 
-export default function Cards ({userid, sortOption, selectedGenres, selectedOrigin}) {
-   
-    const videogames = useSelector((state) => state.videogames); // estado inicial de los videogames;
-    const myFavorites = useSelector((state) => state.myFavorites); // estado inicial de myFavorites;
-    const dispatch = useDispatch(); // Función despachadora;
+const Cards = ({ userid, sortOption, selectedGenres, selectedOrigin }) => {
+  const videogames = useSelector((state) => state.videogames); // estado inicial de los videogames;
+  const dispatch = useDispatch(); // Función despachadora;
 
-   const [isVideoGame, setVideoGame] = useState(true);
+  const [isVideoGame, setVideoGame] = useState(true);
 
-   useEffect(() => {
+  useEffect(() => {
     const vgData = async () => {
-        await Promise.all([
-            dispatch(getVideoGames()),
-            dispatch(addFav(userid)),
-        ]);
-        setVideoGame(false);
+      await dispatch(getVideoGames());
+      setVideoGame(false);
     };
     vgData();
-   }, [dispatch, userid]);
+  }, [dispatch]);
 
   // Paginado;
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,14 +50,12 @@ export default function Cards ({userid, sortOption, selectedGenres, selectedOrig
     sortedVideogames.sort((a, b) => a.rating - b.rating);
   }
 
-  const currentItems = sortedVideogames.slice(ifirstone, ilastone)
+  const currentItems = sortedVideogames.slice(ifirstone, ilastone);
 
   return (
     <>
       {isVideoGame ? (
-        <div >
-          
-        </div>
+        <div></div>
       ) : (
         <div className="cards-container">
           <div className="cards">
@@ -72,13 +64,9 @@ export default function Cards ({userid, sortOption, selectedGenres, selectedOrig
                 <Card
                   key={videogame.id}
                   id={videogame.id}
-                  userid={userid}
                   name={videogame.name}
-                  releaseDate={videogame.releaseDate}
-                  rating={videogame.rating}
                   platforms={videogame.platforms}
                   image={videogame.image}
-                  myFavorites={myFavorites}
                 />
               );
             })}
@@ -108,68 +96,5 @@ export default function Cards ({userid, sortOption, selectedGenres, selectedOrig
   );
 };
 
+export default Cards;
 
-
-
-// import React from 'react';
-// import { useSelector } from "react-redux";
-// import Card from "../CardComponent/Card";
-// import { useEffect, useState } from "react";
-
-// export default function Cards({ userid }) {
-  
-//   const videogames = useSelector((state) => state.videogames);
-
-//   return (
-//     <>
-//           <div>
-//             {videogames?.map((videogame) => {
-//               return (
-//                 <Card
-//                   key={videogame.id}
-//                   id={videogame.id}
-//                   userid={userid}
-//                   name={videogame.name}
-//                   releaseDate={videogame.releaseDate}
-//                   rating={videogame.rating}
-//                   platforms={videogame.platforms}
-//                   image={videogame.image}
-//                 />
-//               );
-//             })}
-//           </div>
-//     </>
-//   );
-// }
-
-
-
-
-// import React from 'react';
-// import Card from '../Card/Card';
-// import styles from './Cards.module.css';
-// import { useSelector } from 'react-redux';
-
-
-// function Cards() { 
-   
-//    const videogames = useSelector((state) => state.videogames);   
-     
-//    return(
-//        <div className={styles.Cards_component}>
-//            <div className={styles.Cards}>
-             
-//                { videogames?.map((element) => (
-//                          <Card 
-//                             key={ element.id }
-//                             game={element}
-//                          /> 
-//                       ))
-//                    } 
-                       
-//             </div>
-//          </div>
-//    );
-// };
-
-// export default Cards;

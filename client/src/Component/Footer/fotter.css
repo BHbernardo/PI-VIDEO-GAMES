@@ -1,0 +1,34 @@
+.footer {
+    background-color: rgba(12, 11, 11, 0.7); /* Usamos 'rgba' para definir un color con transparencia */
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+    border-top: 1px solid #404040;
+  }
+  
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s; /* Agregamos una transición para el cambio de color al pasar el cursor sobre el enlace */
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+    animation: shine 1s infinite alternate; /* Agregamos una animación para el brillo */
+  }
+  
+  @keyframes shine {
+    0% {
+      color: #fff;
+      text-shadow: none;
+    }
+    50% {
+      color: #f0f;
+      text-shadow: 0 0 5px #f0f; /* Cambia el color y agrega un resplandor */
+    }
+    100% {
+      color: #fff;
+      text-shadow: none;
+    }
+  }
+  

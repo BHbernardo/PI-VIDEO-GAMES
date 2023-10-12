@@ -1,18 +1,14 @@
 import { 
-    ADD_FAV, 
-    DELETE_FAV, 
     GENRES_VIDEOGAMES, 
     GET_VIDEOGAMES, 
     VIDEOGAMES_DETAIL,
     VIDEOGAMES_NAME,
     DETAIL_CLEAN,
-    // CREATE_GAME,
 } from "./actions.types";
 
-const initialState = { // ESTADO INICIAL;
+const initialState = { // ESTADO GLOBAL/INICIAL;
     videogames: [],
     videogamedetail: {},
-    myFavorites: [],
     genres: [],
 }
 
@@ -42,24 +38,6 @@ const reducer = (state = initialState, action) => {
             ...state,
             videogamedetail: action.payload,
         }
-        
-     case ADD_FAV:
-        return {
-            ...state,
-            myFavorites: action.payload,
-        }  
-        
-     case DELETE_FAV:
-        return {
-            ...state,
-            myFavorites: action.payload,
-        }  
- 
-    //   case CREATE_GAME:
-    //     return {
-    //         ...state,
-    //         videogames: action.payload,
-    //     }
      
      case DETAIL_CLEAN:
         return {

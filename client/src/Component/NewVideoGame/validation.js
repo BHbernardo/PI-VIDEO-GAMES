@@ -1,64 +1,69 @@
+// Esta función llamada 'validation' se encarga de validar los campos de 'email' y 'password'
+// en el formulario y actualizar el estado de 'errors' con los mensajes de error apropiados.
 
-
-const validation = (form, errors) => {
-    
-    // Validación para el nombre;
+const validation = (form, errors, setErrors) => {
+    // Validación para el campo 'Nombre'
     let nombreError = "";
-    if(!form.name) {
-        nombreError = "Campo Obligatorio";
+    if (!form.name) {
+      nombreError = "Por favor completa este campo";
+    } else if (form.name.length > 50) {
+      nombreError = "No puede exceder los 50 caracteres";
     } else nombreError = "";
-
-    // Validación para los generos;
-    let generoError = "";
-    if(!form.genres || form.genres.length === 0) {
-        generoError = "Seleccione al menos un género";
-    }
-
-    // Validación para la descripción;
-    let descriptionError = "";
-    if(!form.description) {
-        descriptionError = "Campo Obligatorio";
-    } else if (form.description.length > 300) {
-        descriptionError = "No debes excederte de los 300 caracteres";
-    } else if (form.description.length < 15) {
-        descriptionError = "La descripción no debe ser menor a 15 caracteres";
-    } else descriptionError = "";
-
-    // Validación para las plataformas;
-    let plataformaError = "";
-    if(!form.platforms) {
-        plataformaError = "Campo Obligatorio";
-    } else plataformaError = "";
-
-    // Validación para la fecha de lanzamiento;
-    let fechaError = "";
-    if(!form.releaseDate) {
-        fechaError = "Indique una fecha porfavor";
-    } else fechaError = "";
-
-    // Validación para los rating;
-    let ratingError = "";
-    if(!form.rating) {
-        ratingError = "Ingrese un rating correspondiente";
-    } else if (form.rating < 0 || form.rating > 5) {
-        ratingError = "Debe tener rango entre 0 y 5";
-    } else ratingError = "";
-
-    // Validación para la imagen;
+  
+    // Validación para el campo 'Imagen (URL)'
     let imagenError = "";
-    if(!form.image) {
-        imagenError = "Campo Obligatorio";
+    if (!form.image) {
+      imagenError = "Por favor completa este campo";
     } else if (!/^https?:\/\/\S+$/.test(form.image)) {
-        imagenError = "URL inválida";
-    } imagenError = "";
-
-    errors.name = nombreError;
-    errors.genres = generoError;
-    errors.description = descriptionError;
-    errors.platforms = plataformaError;
-    errors.releaseDate = fechaError;
-    errors.rating = ratingError;
-    errors.image = imagenError;
-
-}
-export default validation;
+      imagenError = "URL de imagen inválida";
+    } else imagenError = "";
+  
+    // Validación para el campo 'Descripción'
+    let descripcionError = "";
+    if (!form.description) {
+      descripcionError = "Por favor completa este campo";
+    } else if (form.description.length < 20) {
+      descripcionError = "No puede ser menor de 20 caracteres";
+    } else if (form.description.length > 500) {
+      descripcionError = "No puede exceder los 500 caracteres";
+    } else descripcionError = "";
+  
+    // Validación para el campo 'Plataformas'
+    let plataformasError = "";
+    if (!form.platforms) {
+      plataformasError = "Por favor completa este campo";
+    } else plataformasError = "";
+  
+    // Validación para el campo 'Fecha de lanzamiento'
+    let lanzamientoError = "";
+    if (!form.releaseDate) {
+      lanzamientoError = "Por favor selecciona una fecha";
+    } else lanzamientoError = "";
+  
+    // Validación para el campo 'Rating'
+    let ratingError = "";
+    if (!form.rating) {
+      ratingError = "Por favor ingresa un valor de rating";
+    } else if (form.rating < 0 || form.rating > 5) {
+      ratingError = "El rating debe ser un número entre 0 y 5";
+    } else ratingError = "";
+  
+    // Validación para el campo 'Genres'
+    let generosError = "";
+    if (!form.genres || form.genres.length === 0) {
+      generosError = "Por favor selecciona al menos un género";
+    }
+  
+    // Actualizar el estado de 'errors' con los mensajes de error correspondientes
+    setErrors({
+      name: nombreError,
+      image: imagenError,
+      description: descripcionError,
+      platforms: plataformasError,
+      releaseDate: lanzamientoError,
+      rating: ratingError,
+      genres: generosError,
+    });
+  };
+  
+  export default validation;

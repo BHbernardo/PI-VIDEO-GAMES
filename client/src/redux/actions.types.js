@@ -1,8 +1,5 @@
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GENRES_VIDEOGAMES = "GENRES_VIDEOGAMES";
-export const ADD_FAV = "ADD_FAV";
 export const VIDEOGAMES_DETAIL = "VIDEOGAMES_DETAIL";
 export const VIDEOGAMES_NAME = "VIDEOGAMES_NAME";
-export const DELETE_FAV = "DELETE_FAV";
 export const DETAIL_CLEAN = "DETAIL_CLEAN";
-// export const CREATE_GAME = "CREATE_GAME";
