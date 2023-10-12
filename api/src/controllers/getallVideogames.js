@@ -2,7 +2,7 @@ const axios = require("axios");
 const URL = "https://api.rawg.io/api/games";
 require("dotenv").config();
 const { API_KEY } = process.env;
-const { Videogame, Genres } = require("../db");
+const { Videogame, Genre } = require("../db");
 
 // Variable para almacenar los juegos una vez obtenidos
 let cachedGames = null;
@@ -14,7 +14,7 @@ const getGames = async () => {
     
     try {
       let videogames = [];
-      const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // paginado
+      const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
       await Promise.all(
         pages.map(async (page) => {
           const games = await axios.get(`${URL}?key=${API_KEY}&page=${page}`);
@@ -38,7 +38,7 @@ const getGames = async () => {
 
       // Combinar los juegos obtenidos con los juegos de la base de datos
       const videogamesdb = await Videogame.findAll({
-        include: [Genres],
+        include: [Genre],
       });
 
       videogames = [...videogamesdb, ...videogames];

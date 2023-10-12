@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     platforms: {
-      type: DataTypes.ARRAY(DataTypes.STRING), // contiene un arreglo de valores, en este caso contendra muchas plataformas.
+      type: DataTypes.STRING, // contiene un arreglo de valores, en este caso contendra muchas plataformas.
       allowNull: false,
     },
     image: {
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     releaseDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     rating: {

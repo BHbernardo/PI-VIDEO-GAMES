@@ -8,7 +8,6 @@ const {getbyidVideogames} = require('../controllers/getbyidVideogames');
 const {postvg} = require('../controllers/postvg');
 const {login} = require('../controllers/login');
 const {postUser} = require('../controllers/postuser');
-const {postFav} = require('../controllers/postfav')
 
 const router = Router();
 
@@ -24,12 +23,10 @@ router.get("/", getallVideogames);
 router.get("/:id", getbyidVideogames);
 // Ruta para manejar el inicio de sesión de usuario;
 router.get("/login", login);
-// Ruta para crear un nuevo juego y relacionarlo con sus géneros;
-router.post("/", postvg);
 // Ruta para crear un nuevo usuario;
 router.post("/login", postUser);
-// Ruta para agregar un juego a favs;
-router.post("/fav", postFav);
+// Ruta para crear un nuevo juego y relacionarlo con sus géneros;
+router.post("/", postvg);
 
 
 

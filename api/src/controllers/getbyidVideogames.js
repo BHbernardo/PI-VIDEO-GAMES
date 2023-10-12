@@ -2,35 +2,38 @@ const axios = require("axios");
 const URL = "https://api.rawg.io/api/games";
 require("dotenv").config();
 const { API_KEY } = process.env;
-const { Videogame, Genres } = require("../db");
+const { Videogame, Genre } = require("../db");
 
 const getbyidVideogames = async (req, res) => {
  try {
         const { id } = req.params;
 
+        // Verificamos si el id es un UUID, una vez que lo verifica lo busca;
+            
+            const isUUID =
+              /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(
+                id
+              );
+
 // Guardamos el juego en una variable para la busqueda en la base de datos;        
         let videogameDb; 
 
- // Verificamos si el id es un UUID, una vez que lo verifica lo busca;
-        if(id.includes("-")) {
-             await Videogame.findOne({
-                where: { 
-                        id, 
-                },
-                include: { 
-                        model: Genres, // incluye el genero al que esta asociado;
-                        attributes: ["name"], // que incluya el atributo name;
-                }, 
-            });
-            
-        const genres = Genres;
+// Si el id es UUID, búsqueda del videojuego en la base de datos local
+    
+    if (isUUID) {
+      videogameDb = await Videogame.findOne({
+        where: { id },
+        include: { model: Genre, attributes: ["name"] },
+      });
 
-// Se actualiza videogameDb con los nombres de los géneros;
-            videogameDb = { // Aplicamos esto porque un solo juego puede tener varios generos;
-            ...videogameDb,
-            genres,
-            }
-        }      
+      const genres = videogameDb.genres.map((genre) => genre.name);
+
+      // Actualiza videogame con los nombres de los géneros
+      videogameDb = {
+        ...videogameDb.toJSON(),
+        genres,
+      };
+    }  
 // Si no se encuentra en la base de datos, hacer una solicitud a la "API";
         if (!videogameDb) {
 

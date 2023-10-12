@@ -1,5 +1,4 @@
-const { Videogame, Genres } = require("../db");
-const { v4: uuidv4 } = require("uuid")// genera identificadores únicos universales;
+const { Videogame, Genre } = require("../db");
 
 const postvg = async (req, res) => {
   try {
@@ -23,14 +22,11 @@ const postvg = async (req, res) => {
         },
     });
 
-// Si ya existen los mismos datos devolver un mensaje de error;
+// Si ya existen los mismos datos "name" y descripcion" devolver un mensaje de error;
     if(videoGameOk) return res.status(400).json({ message: "El objeto ya existe" });
 
-// Generar un "UUID" único para el nuevo juego;
-    const id = uuidv4();
-
 // Buscar los géneros seleccionados por ID, que incluya al menos UNO;
-    const Genresselec = await Genres.findAll({ 
+    const Genresselec = await Genre.findAll({ 
         where: { 
             name: genres, 
         },
@@ -38,13 +34,13 @@ const postvg = async (req, res) => {
 
 // Creamos un nuevo juego;
     const vg = await Videogame.create({
-        id,
         name,
         description,
         platforms,
         image,
         releaseDate,
         rating,
+        genres
       });
 
 // Asociar los géneros encontrados al nuevo juego;

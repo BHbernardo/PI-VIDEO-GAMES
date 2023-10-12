@@ -2,7 +2,7 @@ const axios = require('axios');
 const URL = "https://api.rawg.io/api/genres";
 require("dotenv").config();
 const { API_KEY } = process.env;
-const { Genres } = require("../db");
+const { Genre } = require("../db");
 
 const getallGenre = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ const getallGenre = async (req, res) => {
       const Genr = await Promise.all( // devuelve una promesa que termina correctamente cuando todas las promesas en el argumento
         Generos.map(async (gen) => {
           const { id, name } = gen;
-          const [genre] = await Genres.findOrCreate({ where: { id, name },
+          const [genre] = await Genre.findOrCreate({ where: { id, name },
           });
           return genre;  
         })
