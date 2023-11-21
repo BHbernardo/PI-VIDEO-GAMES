@@ -15,6 +15,8 @@ const getGames = async () => {
     try {
       let videogames = [];
       const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
+
+      // traemos los primeros 200 juegos de la api
       await Promise.all(
         pages.map(async (page) => {
           const games = await axios.get(`${URL}?key=${API_KEY}&page=${page}`);
@@ -42,6 +44,7 @@ const getGames = async () => {
       });
 
       videogames = [...videogamesdb, ...videogames];
+      
       
       // Almacenar los juegos en la variable cachedGames para futuras solicitudes
       cachedGames = videogames;

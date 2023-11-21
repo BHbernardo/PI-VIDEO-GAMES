@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { detailVideoGame } from "../../redux/actions";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { detailClean } from "../../redux/actions";
 import "./Detail.css";
@@ -15,13 +15,14 @@ import xboxIcon from "../../resource/icons/xbox.png";
 
 const Detail = () => {
    
+  // Obtenemos los detelles de los juegos desde el estado de "Redux";
     const videogamedetail = useSelector((state) => state.videogamedetail);
-    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     const { id } = useParams();
 
     // Se aplica para obtener los detalles del juego cuando el componente se monta;
+    // o cuando el parametro del id cambia;
     useEffect(() => {
         const data = async () => {
             await Promise.all([
@@ -37,14 +38,25 @@ const Detail = () => {
 
   // Renderizar las estrellas
   const renderStars = () => {
+
+    // número máximo de estrellas
     const maxRating = 5;
+
+    // Esto representa el número de estrellas llenas, se calcula tomando la parte entera;
     const filledStars = Math.floor(videogamedetail.rating);
+
+    // verifica si hay una estrella "media llena" en caso de que "rating" no sea un número entero;
     const hasHalfStar = videogamedetail.rating % 1 !== 0;
+
+    // array donde se van a almacenar las estrellas;
     const stars = [];
 
     for (let i = 1; i <= maxRating; i++) {
+
+      // almacena la clase CSS que se aplicará a cada estrella.
       let starClass = "star";
 
+     // representa las estrellas llenas
       starClass += i <= videogamedetail.rating ? " filled" : "";
 
       if (i === filledStars + 1 && hasHalfStar) {
@@ -88,12 +100,18 @@ const cleanDescription = (description) => {
 
 // De esta manera obtenemos los iconos de las distintas plataformas;
 const getplatIcons = (platforms) => {
+
   const platformsKey = Array.isArray(platforms)
+  // si hay multiples plataformas, se forma una cadena de ellas separadas por una " , ";
+  // luego se convierten en minuscula
     ? platforms.join(", ").toLowerCase()
+  // sino simplemente se convierten en minuscula;
     : platforms.toLowerCase();
 
+    // va a almacenar los iconos de las plataformas;
   const platformsIcons = [];
 
+// verifica si la plataforma icnluye el string detallado, si es asi agrega el icono;
   if (platformsKey.includes("pc")) {
     platformsIcons.push(pcIcon);
   }

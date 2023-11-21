@@ -5,8 +5,10 @@ const { API_KEY } = process.env;
 const { Videogame, Genre } = require("../db");
 
 const getbyidVideogames = async (req, res) => {
- try {
-        const { id } = req.params;
+
+  try {
+    const { id } = req.params;
+    console.log("que muestra esto", typeof id)
 
         // Verificamos si el id es un UUID, una vez que lo verifica lo busca;
             
@@ -18,7 +20,7 @@ const getbyidVideogames = async (req, res) => {
 // Guardamos el juego en una variable para la busqueda en la base de datos;        
         let videogameDb; 
 
-// Si el id es UUID, búsqueda del videojuego en la base de datos local
+// Si el id es UUID, búsqueda del juego en la base de datos local
     
     if (isUUID) {
       videogameDb = await Videogame.findOne({
@@ -34,6 +36,8 @@ const getbyidVideogames = async (req, res) => {
         genres,
       };
     }  
+
+
 // Si no se encuentra en la base de datos, hacer una solicitud a la "API";
         if (!videogameDb) {
 

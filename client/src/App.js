@@ -13,7 +13,8 @@ import Sidebar from './sidebar/sidebar';
 import Detail from './Component/DetailComponent/Detail';
 import NewVideoGames from './Component/NewVideoGame/newVideoGame';
 import About from './Component/AboutComponent/About';
-import Fotter from './Component/Footer/fotter'
+import Fotter from './Component/Footer/fotter';
+import Register from './Component/Register/register'
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     setShowSidebar((prevState) => !prevState);
   };
 
-  const location = pathname !== "/" && pathname !== "/login"; 
+  const location = pathname !== "/" && pathname !== "/login" && pathname !== "/register"; 
 
   return (
     <div className='App'>
@@ -40,6 +41,7 @@ function App() {
       <Routes>
       <Route path='/' element={<Landing/>} />
       <Route path='/login' element={<Form/>} />
+      <Route  path='/register' element={<Register/>}/>
       <Route path='/home' element = {<Home/>} />
       <Route path='/search' element={<SearchBar/>}/>
       <Route path='/detail/:id' element={<Detail/>}/>

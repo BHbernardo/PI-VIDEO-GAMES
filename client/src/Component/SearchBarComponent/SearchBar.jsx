@@ -10,19 +10,20 @@ import "../CardsConteiner/Cards.css";
 
 export default function SearchBar() {
   const { userid } = useUserContext();
+
+  // obtenemos el estado de los juegos desde "Redux";
   const videogames = useSelector((state) => state.videogames);
-  console.log("Datos de videojuegos en el Redux Store:", videogames);
+  
   const dispatch = useDispatch();
+
+  // Obtenemos la info de la URL aplicando el useLocation;
   const nameQueryParams = new URLSearchParams(useLocation().search);
+  // Aca se obtiene el valor del parametro "name" de dicha URL;
   const name = nameQueryParams.get("name");
 
+  // se aplica para obtener los juegos filtrados cuando la propiedad "name" cambia, se actualiza o se monta;
   useEffect(() => {
-    try {
-      dispatch(nameVg(name));
-    } catch (error) {
-      // Manejar el error, por ejemplo, actualizando el estado para mostrar un mensaje de error.
-      console.error("Error al buscar juegos por nombre:", error);
-    }
+    dispatch(nameVg(name));
   }, [name, dispatch]);
 
   return (

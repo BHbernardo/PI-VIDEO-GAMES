@@ -13,10 +13,12 @@ const NewVideoGames = () => {
   // Obtener el estado de los géneros desde Redux
   const genres = useSelector((state) => state.genres);
 
+  // Efecto para obtener los generos cuando el componente se monta o actualiza;
   useEffect(() => {
     dispatch(genresVg());
   }, [dispatch]);
-    
+   
+  // Estado en el cual se van a almacenar los valores del formulario;
     const [form, setForm] = useState({
       name: "",
       image: "",
@@ -27,6 +29,7 @@ const NewVideoGames = () => {
       genres: [],
     });
 
+  // Estado para almacenar los errores correspondientes al formulario;  
     const [errors, setErrors] = useState({
       name: "",
       image: "",
@@ -37,6 +40,7 @@ const NewVideoGames = () => {
       genres: [],
     });
   
+    // Funcion que se va a encargar de manejar los cambio en cada campo;
     const handleChange = (event) => {
       const name = event.target.name;
       const value = event.target.value;
@@ -45,6 +49,7 @@ const NewVideoGames = () => {
         [name]: value,
       });
 
+    // Aplicamos las validaciones correspondientes;
       validation({ 
         ...form, 
         [name]: value 
@@ -53,11 +58,12 @@ const NewVideoGames = () => {
       setErrors);
     };
   
+  // Funcion que se va a ejecutar cuando se cambia el estado de un genero con el checkbox;  
     const handleGenreChange = (event) => {
-      const genreName = event.target.value;
-      const isChecked = event.target.checked;
+      const genreName = event.target.value; // identifica el genero seleccionado;
+      const isChecked = event.target.checked; // identifica si esta seleccionado o no;
   
-      let updatedGenres;
+      let updatedGenres; // lista actualizada de los generos;
   
       // Si el checkbox está seleccionado, agregamos el género a la lista de géneros seleccionados
       if (isChecked) {
@@ -65,48 +71,42 @@ const NewVideoGames = () => {
       } else {
         updatedGenres = form.genres.filter((genre) => genre !== genreName);
       }
-  
+      // actualiza el estado con la nueva lista;
       setForm({ ...form, genres: updatedGenres });
   
-      // Validación por campo
+      // Validación por campo de la lista actualizada;
       validation({ 
         ...form, 
         genres: updatedGenres 
       }, 
         errors, 
         setErrors);
+
+      // Validación adicional para verificar que al menos un género esté seleccionado;
+      const hasSelectedGenre = updatedGenres.length > 0;
+      if (!hasSelectedGenre) {
+        setErrors((errors) => ({...errors,genres: "Por favor selecciona al menos un género",}));
+      } else {
+        setErrors((errors) => ({ ...errors, genres: "" }));
       }
+      }
+
+      // Funcion que se va a ejecutar cada vez que se envie el formulario de creacion;
       const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault(); // permite que no se recargue la pag y no perder la informacion aplicada;
         
         try {
-          const response = await axios.post("http://localhost:3001/videogames", form);
-          
-          if (response.status === 201) {
-            alert("Videogame Created");
-            navigate(`/detail/${response.data.id}`);
-          } else {
-            alert("Error en la respuesta del servidor");
-          }
+          const response = await axios.post(
+            "http://localhost:3001/videogames", 
+            form
+            );
+          alert("Videogame Created");
+          // Ruta para navegar en el detalle del juego creado una vez enviado el formulario;
+          navigate(`/detail/${response.data.id}`);
         } catch (error) {
-          if (error.response && error.response.status === 409) {
-            // El servidor devolvió un código de estado 409 (Conflict) que indica que ya existe un juego con el mismo nombre.
-            alert("Ya existe un juego con este nombre. Por favor, elige otro nombre.");
-          } else {
-            alert("Error al realizar la solicitud: " + error.message);
+            alert("Error al realizar la solicitud");
           }
         }
-      };
-
-        // axios
-        // .post("http://localhost:3001/videogames", form)
-
-        //    .then((res) => {
-        //       console.log(res.data);
-        //       alert("Se creo el juego")
-        //    })
-        //    .catch((error) => alert(error.message));
-     
   
     return (
       <div className="form-general">

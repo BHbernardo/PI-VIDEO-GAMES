@@ -17,6 +17,7 @@ const getallGenre = async (req, res) => {
         games_count: data.games_count,
       }));
 
+      // Crear los géneros en la base de datos y obtenerlos con findOrCreate;
       const Genr = await Promise.all( // devuelve una promesa que termina correctamente cuando todas las promesas en el argumento
         Generos.map(async (gen) => {
           const { id, name } = gen;

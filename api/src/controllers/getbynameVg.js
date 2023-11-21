@@ -15,7 +15,7 @@ const getbynameVg = async(req, res) => {
    const videogame = await Videogame.findOne({ 
     where: { 
     name: { 
-      [Op.iLike]: `%${name}` 
+      [Op.iLike]: `%${name}` // mayusculas y minusculas;
     } 
   }, 
 });

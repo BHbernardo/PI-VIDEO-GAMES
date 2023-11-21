@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import validation from "./validation";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../userContext";
+import { Link } from "react-router-dom";
 import "./Form.css";
 
 const Form = () => {
@@ -87,6 +88,10 @@ const handleSubmit = async (event) => {
 
         <button type="submit">LOGIN</button>
         {loginn && <p>{loginn}</p>}
+        <span className="register">Not acount yet? </span>
+        <span className="register-link">
+          <Link to={"/register"}>REGISTER</Link>
+        </span>
         
        </form> 
     </div>

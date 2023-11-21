@@ -7,8 +7,6 @@ import {
     DETAIL_CLEAN,
 } from "./actions.types";
 
-// variable de entorno para almacenar información de configuración;
-// const API_URL = process.env.REACT_APP_URL;
 
 // Traemos todos los juegos con esta ACCION;
 export const getVideoGames = () => {

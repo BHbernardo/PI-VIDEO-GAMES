@@ -7,37 +7,61 @@ import Cards from "../CardsConteiner/Cards";
 
 const Home = () => {
   const { userid } = useUserContext();
+
+  // obtenemos los generos desde el estado de Redux;
   const genres = useSelector((state) => state.genres);
   const dispatch = useDispatch();
 
+  // Obtenemos los generos cuando se carga el componente;
   useEffect(() => {
-    dispatch(genresVg());
+    dispatch(genresVg()); // cuando se monta se dispara la accion;
   }, [dispatch]);
 
+  // estados para aplicar en los "filtros" y "opciones" de clasificacion;
+
+  // Almacena los géneros seleccionados;
   const [selectedGenres, setSelectedGenres] = useState([]);
+  
+  // Almacena la opción de origen seleccionada;
   const [selectedOrigin, setSelectedOrigin] = useState("");
+
+  // Almacena la opción de clasificación seleccionada;
   const [sortOption, setSortOption] = useState("");
+
+  // Controla la visibilidad de un menú desplegable de los géneros;
   const [showGenreMenu, setShowGenreMenu] = useState(false);
 
+  // Manejador de cambios en los generos;
   const handleGenreFilters = (event) => {
+    // Toma el nombre del género que se ha seleccionado o deseleccionado.
     const genreName = event.target.value;
+  
+    // Utiliza la función `setSelectedGenres` para actualizar el estado `selectedGenres`.
     setSelectedGenres((prevSelectedGenres) => {
+      // Verifica si el género ya está incluido en la lista de géneros seleccionados.
       if (prevSelectedGenres.includes(genreName)) {
+        // Si el género ya está incluido, lo elimina de la lista de géneros seleccionados.
         return prevSelectedGenres.filter((genre) => genre !== genreName);
       } else {
+        // Si el género no está incluido, agrega el género a la lista de géneros seleccionados.
         return [...prevSelectedGenres, genreName];
       }
     });
   };
 
+  // Manejador de cambios en la opcion de origen;
   const handleOriginChange = (event) => {
-    setSelectedOrigin(event.target.value);
+    // lanza un evento cuando cambia el origen;
+    setSelectedOrigin(event.target.value); // origen por = API o BDD;
   };
 
+  // Manejador de cambios en la opcion de clasificacion;
   const handleSortChange = (event) => {
-    setSortOption(event.target.value);
+    // lanza un evento cuando se quiere cambiar la opcion de ordenamiento;
+    setSortOption(event.target.value); // ordenar por = (A - Z, Z - A), (0 - 5, 5 - 0);
   };
 
+  // Resetea a valores predeterminados los filtros y opciones;
   const resetFilter = () => {
     setSortOption("");
     setSelectedGenres([]);

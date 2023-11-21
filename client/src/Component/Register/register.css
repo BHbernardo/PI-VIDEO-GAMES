@@ -1,6 +1,6 @@
-/* Estilos generales para el formularioulario */
+/* Estilos generales para el formulario de registro */
 .formulario-container {
-    background-image: url("../../resource/icons/landing.jpg");
+    
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -11,7 +11,7 @@
   
   .formulario-container form {
     border-radius: 10px;
-    height: 60vh;
+    height: 700px;
     width: 50vh;
     background: linear-gradient(290deg, #38bec0cd, #4e0867c5, #190114e7);
     display: grid;
@@ -20,15 +20,14 @@
     align-items: center;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    animation: fade-in 1s ease-in-out;
   }
   
   .formulario-container img {
     flex-direction: column;
     width: 100px;
     height: 100px;
-    margin-bottom: 50px;
-    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-top: 20px;
   }
   
   .formulario-container label {
@@ -52,30 +51,13 @@
     margin-top: 5px;
     font-weight: bold;
   }
-
-  .formulario-container button {
-    padding: 10px 20px;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 25px;
-    border: none;
-    margin: 15px;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .formulario-container button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    transform: scale(1.05);
-  }
-
-  .register {
+/*   
+  .login {
     color: rgb(255, 0, 0);
     margin-bottom: 10px;
-  }
+  } */
 
-  .register-link {
+  .login {
     color: rgb(0, 0, 0);
     border: 2px solid rgb(0, 0, 0);
     border-radius: 10px; /* Esto agrega bordes redondos */
@@ -95,13 +77,20 @@
     font-size: 16px; /* Ajusta el tamaño de fuente */
     font-family: Arial, sans-serif; /* Cambia la fuente del texto */
   }
-  @keyframes fade-in {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px); /* Desplazar hacia arriba */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+  
+  .formulario-container button {
+    padding: 10px 20px;
+    background-color: #1a73e8;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 25px;
+    border: none;
+    transition: background-color 0.3s;
+    margin: 15px;
+  }
+  
+  .formulario-container button:hover {
+    background-color: #0858b4;
+  }
+  

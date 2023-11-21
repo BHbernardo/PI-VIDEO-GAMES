@@ -19,8 +19,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     platforms: {
-      type: DataTypes.STRING, // contiene un arreglo de valores, en este caso contendra muchas plataformas.
-      allowNull: false,
+      type: DataTypes.STRING, 
     },
     image: {
       type: DataTypes.STRING,
